@@ -58,6 +58,11 @@ def search():
 def name():
     speak('My name is Jackie')
 
+def spell_word():
+    word = record("Please say a word and I will spell it for you.")
+    spelled_out = ' '.join(word).upper()
+    speak(f"{word} is spelled as {spelled_out}.")
+
 def joke():
     joke = pyjokes.get_joke()
     speak(joke)
@@ -78,6 +83,8 @@ def detect_intent(text):
             return 'name'
         if token.lemma_ == 'joke':
             return 'joke'
+        if token.lemma_ == 'spell':
+           return 'spell'
         if token.lemma_ == 'exit':
             return 'exit'
     return None
@@ -95,6 +102,8 @@ def respond(voice_data):
         exit_app()
     elif intent == 'joke':
         joke()
+    elif intent == 'spell':
+        spell_word()
     else:
         speak("Sorry, I cannot handle that request yet.")
 
